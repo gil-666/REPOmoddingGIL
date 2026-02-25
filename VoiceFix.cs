@@ -22,7 +22,7 @@ public class VoiceFixPlugin : BaseUnityPlugin
             var prefix = AccessTools.Method(typeof(PhotonFixPatch), "DeepScrubPrefix");
             harmony.Patch(sendOp, new HarmonyMethod(prefix));
 
-            // lmao
+            // fucking nigga
             var enqueue = AccessTools.Method(typeof(PhotonPeer), "EnqueueOperation");
             var prefixEnqueue = AccessTools.Method(typeof(PhotonFixPatch), "UniversalPrefix");
             harmony.Patch(enqueue, new HarmonyMethod(prefixEnqueue));
@@ -47,9 +47,12 @@ public class VoiceFixPlugin : BaseUnityPlugin
 
 public static class PhotonFixPatch
 {
+    // We add 'ref SendOptions sendOptions' here to catch it at the same time we scrub data
     public static void DeepScrubPrefix(byte operationCode, ParameterDictionary operationParameters, ref SendOptions sendOptions)
     {
-        // FORCE RELIABILITY
+        // 1. FORCE RELIABILITY RIGHT HERE
+        // By using 'ref' on the SendOptions in the main SendOperation call, 
+        // we override the Voice Transport's desire for unsequenced data.
         sendOptions.DeliveryMode = DeliveryMode.Reliable;
         sendOptions.Encrypt = false;
 
@@ -92,11 +95,10 @@ public static class PhotonFixPatch
         return obj;
     }
 
-    // fallback
+    // Keep this as a secondary safety net
     public static void UniversalPrefix(ref SendOptions sendOptions)
     {
         sendOptions.Encrypt = false;
         sendOptions.DeliveryMode = DeliveryMode.Reliable;
     }
-
 }
