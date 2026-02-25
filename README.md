@@ -1,21 +1,5 @@
-# Photon V4 Server Voice Fix
+my repo for R.E.P.O mods
 
-Fixes voice chat on **self-hosted Photon Server V4 (On-Premise)** setups.
-
-* Works with:
-
-  * SelfHostedPhoton
-  * PhotonServerSettings
-
-*This mod is made for R.E.P.O but may also work on other games
----
-
-## Tested On
-
-* Photon Server V4 (`v4-0-29-11263`)
-
----
-
-## Important
-
-**If you are using Photon Server V5 (paid), you do not need this mod.**
+my mods:
+PhotonV4VoiceFix (fixes voice chat for self hosted photon v4 servers)
+REPOSessionFix (fixing session hosting/joining for self hosted photon v4 servers on the Internet)
